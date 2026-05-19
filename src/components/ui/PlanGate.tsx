@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ReactNode } from "react";
 import { usePlan } from "@/src/context/UserContext";
 import AnimatedBackground from "@/src/components/AnimatedBackground";
+// Forms are in src/forms/ — redesign any form without touching this component
 
 interface Props {
   require: "premium" | "admin";

@@ -1,7 +1,17 @@
 "use client";
 import { useEffect } from "react";
 import ReactPlayer from "react-player";
+import type { ComponentType } from "react";
 import { Video } from "@/src/types/videos";
+
+// react-player v3 changed its forwardRef signature — this cast restores the expected API.
+const Player = ReactPlayer as unknown as ComponentType<{
+    url: string;
+    width?: string | number;
+    height?: string | number;
+    controls?: boolean;
+    className?: string;
+}>;
 
 interface VideoModalProps {
     video: Video;
@@ -32,7 +42,7 @@ export default function VideoModal({ video, onClose, onNext, onPrev, hasNext, ha
                 </button>
 
                 {/* Player */}
-                <ReactPlayer url={video.url} width="100%" height="240px" controls={true} className="md:h-[480px]" />
+                <Player url={video.url} width="100%" height="240px" controls={true} className="md:h-[480px]" />
 
                 {/* Info */}
                 <div className="p-4">
