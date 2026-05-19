@@ -7,6 +7,7 @@ import DashboardHeader from "@/src/components/dashboard/DashboardHeader";
 import SensorCard from "@/src/components/dashboard/SensorCard";
 import WeatherWidget from "@/src/components/dashboard/WeatherWidget";
 import AlertFeed from "@/src/components/dashboard/AlertFeed";
+import TrendingVideos from "@/src/components/dashboard/TrendingVideos";
 
 export default function DashboardPage() {
   const [activeFarm, setActiveFarm] = useState<FarmProfile>(mockFarms[0]);
@@ -88,6 +89,11 @@ export default function DashboardPage() {
             <h2 className="text-lg font-bold text-gray-800 mb-4">🔔 Smart Alerts</h2>
             <AlertFeed alerts={mockAlerts} />
           </div>
+        </div>
+
+        {/* Trending AgriTech Videos */}
+        <div>
+          <TrendingVideos />
         </div>
 
         {/* IoT Upgrade CTA */}

@@ -104,7 +104,7 @@ export default function InvoiceBuilder({ onSave, onCancel, existingCount, pastCl
   };
 
   const inputCls = (err?: string) =>
-    `w-full px-3.5 py-2.5 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white transition-all ${err ? "border-red-400" : "border-gray-200"}`;
+    `w-full px-3.5 py-2.5 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white transition-all duration-150 hover:border-blue-300 ${err ? "border-red-400" : "border-gray-200"}`;
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -113,14 +113,14 @@ export default function InvoiceBuilder({ onSave, onCancel, existingCount, pastCl
         {[["1", "Client & Details"], ["2", "Line Items"], ["3", "Review"]].map(([n, label], idx) => (
           <div key={n} className="flex items-center flex-1">
             <div className="flex flex-col items-center">
-              <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold border-2 transition-all
-                ${step > idx + 1 ? "bg-green-500 border-green-500 text-white" : step === idx + 1 ? "bg-blue-600 border-blue-600 text-white" : "bg-white border-gray-300 text-gray-400"}`}>
+              <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold border-2 transition-all duration-200
+                ${step > idx + 1 ? "bg-green-500 border-green-500 text-white shadow-md shadow-green-200" : step === idx + 1 ? "bg-blue-600 border-blue-600 text-white shadow-md shadow-blue-200 scale-110" : "bg-white border-gray-300 text-gray-400"}`}>
                 {step > idx + 1 ? "✓" : n}
               </div>
-              <span className={`text-xs mt-1 font-medium ${step === idx + 1 ? "text-blue-600" : "text-gray-400"}`}>{label}</span>
+              <span className={`text-xs mt-1 font-medium transition-colors duration-200 ${step === idx + 1 ? "text-blue-600" : "text-gray-400"}`}>{label}</span>
             </div>
             {idx < 2 && (
-              <div className={`flex-1 h-0.5 mx-2 mb-5 ${step > idx + 1 ? "bg-green-400" : "bg-gray-200"}`} />
+              <div className={`flex-1 h-0.5 mx-2 mb-5 transition-all duration-300 ${step > idx + 1 ? "bg-green-400" : "bg-gray-200"}`} />
             )}
           </div>
         ))}
@@ -130,7 +130,7 @@ export default function InvoiceBuilder({ onSave, onCancel, existingCount, pastCl
       {step === 1 && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Left: Invoice meta */}
-          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 space-y-4">
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 space-y-4 transition-all duration-200 hover:shadow-md hover:border-blue-100">
             <h3 className="font-bold text-gray-800 text-base border-b border-gray-100 pb-2">Invoice Details</h3>
             <div>
               <label className="block text-xs font-semibold text-gray-600 mb-1">Invoice Number *</label>
@@ -165,7 +165,7 @@ export default function InvoiceBuilder({ onSave, onCancel, existingCount, pastCl
           </div>
 
           {/* Right: Client info */}
-          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 space-y-4">
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 space-y-4 transition-all duration-200 hover:shadow-md hover:border-blue-100">
             <h3 className="font-bold text-gray-800 text-base border-b border-gray-100 pb-2">Bill To</h3>
             <div>
               <label className="block text-xs font-semibold text-gray-600 mb-1">Client Name *</label>
@@ -267,8 +267,8 @@ export default function InvoiceBuilder({ onSave, onCancel, existingCount, pastCl
           {/* Add item */}
           <div className="px-6 py-3 border-t border-gray-100">
             <button onClick={addItem}
-              className="flex items-center gap-2 text-blue-600 hover:text-blue-700 text-sm font-semibold transition-all">
-              <span className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 text-xs font-bold">+</span>
+              className="flex items-center gap-2 text-blue-600 hover:text-blue-700 text-sm font-semibold transition-all duration-150 active:scale-95 group">
+              <span className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 text-xs font-bold transition-all duration-150 group-hover:bg-blue-600 group-hover:text-white group-hover:shadow-md">+</span>
               Add Line Item
             </button>
           </div>
@@ -364,7 +364,7 @@ export default function InvoiceBuilder({ onSave, onCancel, existingCount, pastCl
       {/* Navigation */}
       <div className="flex items-center justify-between mt-6">
         <button onClick={step === 1 ? onCancel : () => setStep(s => s - 1)}
-          className="px-5 py-2.5 border-2 border-gray-200 rounded-xl text-sm font-bold text-gray-600 hover:border-gray-300 transition-all">
+          className="px-5 py-2.5 border-2 border-gray-200 rounded-xl text-sm font-bold text-gray-600 hover:border-gray-400 hover:text-gray-800 hover:shadow-sm transition-all duration-150 active:scale-95">
           {step === 1 ? "Cancel" : "← Back"}
         </button>
         {step < 3 && (
@@ -373,13 +373,13 @@ export default function InvoiceBuilder({ onSave, onCancel, existingCount, pastCl
             if (step === 2 && !validate2()) return;
             setStep(s => s + 1);
           }}
-            className="px-6 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-bold hover:bg-blue-700 shadow-md transition-all">
+            className="px-6 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-bold hover:bg-blue-700 hover:shadow-lg hover:-translate-y-0.5 shadow-md transition-all duration-150 active:scale-95">
             Continue →
           </button>
         )}
         {step === 3 && (
           <button onClick={handleGenerate}
-            className="px-6 py-2.5 bg-green-600 text-white rounded-xl text-sm font-bold hover:bg-green-700 shadow-md transition-all">
+            className="px-6 py-2.5 bg-green-600 text-white rounded-xl text-sm font-bold hover:bg-green-700 hover:shadow-lg hover:-translate-y-0.5 shadow-md transition-all duration-150 active:scale-95">
             ✓ Generate Invoice
           </button>
         )}

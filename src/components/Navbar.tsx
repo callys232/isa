@@ -10,13 +10,14 @@ export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
 
     const navLinks = [
+        { name: "Home",        href: "/" },
+        { name: "Awareness",   href: "/awareness" },
         { name: "Marketplace", href: "/marketplace" },
-        { name: "Dashboard", href: "/dashboard" },
-        { name: "AI Advisor", href: "/ai-advisor" },
-        { name: "Developers", href: "/developers" },
-        { name: "Awareness", href: "/awareness" },
-        { name: "Invoice", href: "/invoice" },
-        { name: "Pricing", href: "/premuim" },
+        { name: "Dashboard",   href: "/dashboard" },
+        { name: "AI Hub",      href: "/aiassistant" },
+        { name: "Schedule",    href: "/schedule" },
+        { name: "Invoice",     href: "/invoice" },
+        { name: "Pricing",     href: "/premuim" },
     ];
 
     return (
@@ -31,17 +32,17 @@ export default function Navbar() {
                     </div>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden md:flex space-x-4">
+                    <div className="hidden md:flex items-center gap-0.5">
                         {navLinks.map((link) => {
                             const isActive = pathname === link.href;
                             return (
                                 <Link
                                     key={link.name}
                                     href={link.href}
-                                    className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-300
+                                    className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 whitespace-nowrap
                     ${isActive
-                                            ? "bg-blue-600 text-white shadow-md"
-                                            : "text-blue-600 hover:bg-blue-100 hover:text-blue-800"}
+                                            ? "bg-blue-600 text-white shadow-sm ring-2 ring-blue-200"
+                                            : "text-blue-600 hover:bg-blue-50 hover:text-blue-800 hover:shadow-sm"}
                   `}
                                 >
                                     {link.name}

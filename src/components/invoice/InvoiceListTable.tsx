@@ -76,13 +76,13 @@ export default function InvoiceListTable({ invoices, onView, onMarkPaid, onDelet
           </svg>
           <input value={search} onChange={e => setSearch(e.target.value)}
             placeholder="Search by client or invoice ID..."
-            className="w-full pl-9 pr-4 py-2.5 border border-gray-200 rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-400" />
+            className="w-full pl-9 pr-4 py-2.5 border border-gray-200 rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 hover:border-blue-300 transition-colors" />
         </div>
         <div className="flex gap-2 flex-wrap">
           {(["All", "Pending", "Paid", "Overdue", "Draft"] as const).map(s => (
             <button key={s} onClick={() => setStatusFilter(s)}
-              className={`px-3 py-2 rounded-xl text-xs font-bold transition-all
-                ${statusFilter === s ? "bg-blue-600 text-white shadow-md" : "bg-white border border-gray-200 text-gray-600 hover:border-blue-300"}`}>
+              className={`px-3 py-2 rounded-xl text-xs font-bold transition-all duration-150 active:scale-95
+                ${statusFilter === s ? "bg-blue-600 text-white shadow-md scale-105" : "bg-white border border-gray-200 text-gray-600 hover:border-blue-300 hover:text-blue-600 hover:shadow-sm"}`}>
               {s}
             </button>
           ))}
@@ -121,11 +121,11 @@ export default function InvoiceListTable({ invoices, onView, onMarkPaid, onDelet
 
               return (
                 <div key={inv.id}
-                  className="px-5 py-4 grid grid-cols-1 md:grid-cols-12 gap-2 items-center hover:bg-gray-50 transition-colors group">
+                  className="px-5 py-4 grid grid-cols-1 md:grid-cols-12 gap-2 items-center hover:bg-blue-50/30 hover:shadow-sm border-b border-gray-50 hover:border-blue-100 transition-all duration-150 group cursor-default">
                   {/* Mobile: stacked */}
                   <div className="md:hidden flex items-center justify-between">
                     <div>
-                      <p className="font-bold text-gray-800 text-sm">{inv.client}</p>
+                      <p className="font-bold text-gray-800 text-sm group-hover:text-blue-700 transition-colors">{inv.client}</p>
                       <p className="text-xs text-gray-400">{invNo} · Due {inv.dueDate}</p>
                     </div>
                     <div className="text-right">
@@ -139,7 +139,7 @@ export default function InvoiceListTable({ invoices, onView, onMarkPaid, onDelet
                   {/* Desktop: grid */}
                   <div className="hidden md:block col-span-1 text-xs text-gray-400 font-mono">{invNo.split("-").pop()}</div>
                   <div className="hidden md:block col-span-3">
-                    <p className="font-semibold text-gray-800 text-sm truncate">{inv.client}</p>
+                    <p className="font-semibold text-gray-800 text-sm truncate group-hover:text-blue-700 transition-colors">{inv.client}</p>
                     {inv.clientEmail && <p className="text-xs text-gray-400 truncate">{inv.clientEmail}</p>}
                   </div>
                   <div className="hidden md:block col-span-2 text-sm text-gray-600">{inv.issueDate}</div>
@@ -152,7 +152,7 @@ export default function InvoiceListTable({ invoices, onView, onMarkPaid, onDelet
                     {sym}{inv.totals.grandTotal.toLocaleString()}
                   </div>
                   <div className="hidden md:flex col-span-1 justify-center">
-                    <span className={`inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full ${sc.bg} ${sc.text}`}>
+                    <span className={`inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full transition-transform duration-150 group-hover:scale-105 ${sc.bg} ${sc.text}`}>
                       <span className={`w-1.5 h-1.5 rounded-full ${sc.dot}`}></span>
                       {inv.status}
                     </span>
@@ -161,23 +161,23 @@ export default function InvoiceListTable({ invoices, onView, onMarkPaid, onDelet
                   {/* Actions */}
                   <div className="flex md:justify-center gap-1.5 mt-2 md:mt-0 col-span-1">
                     <button onClick={() => onView(inv)} title="View"
-                      className="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 flex items-center justify-center text-xs transition-all">
+                      className="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-500 hover:text-white hover:shadow-md flex items-center justify-center text-xs transition-all duration-150 active:scale-90">
                       👁
                     </button>
                     {inv.status === "Pending" && (
                       <button onClick={() => onMarkPaid(inv.id)} title="Mark Paid"
-                        className="w-7 h-7 rounded-lg bg-green-50 text-green-600 hover:bg-green-100 flex items-center justify-center text-xs transition-all">
+                        className="w-7 h-7 rounded-lg bg-green-50 text-green-600 hover:bg-green-500 hover:text-white hover:shadow-md flex items-center justify-center text-xs transition-all duration-150 active:scale-90">
                         ✓
                       </button>
                     )}
                     {confirmDelete === inv.id ? (
                       <button onClick={() => { onDelete(inv.id); setConfirmDelete(null); }}
-                        className="px-2 h-7 rounded-lg bg-red-500 text-white text-[10px] font-bold hover:bg-red-600 transition-all">
+                        className="px-2 h-7 rounded-lg bg-red-500 text-white text-[10px] font-bold hover:bg-red-600 hover:shadow-md transition-all duration-150 active:scale-95">
                         Confirm
                       </button>
                     ) : (
                       <button onClick={() => setConfirmDelete(inv.id)} title="Delete"
-                        className="w-7 h-7 rounded-lg bg-red-50 text-red-400 hover:bg-red-100 flex items-center justify-center text-xs transition-all opacity-0 group-hover:opacity-100">
+                        className="w-7 h-7 rounded-lg bg-red-50 text-red-400 hover:bg-red-500 hover:text-white hover:shadow-md flex items-center justify-center text-xs transition-all duration-150 opacity-0 group-hover:opacity-100 active:scale-90">
                         🗑
                       </button>
                     )}

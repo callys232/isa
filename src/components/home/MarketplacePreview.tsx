@@ -2,13 +2,15 @@
 
 import Link from "next/link";
 import { mockListings } from "@/src/mocks/mockMarketplace";
+import AnimatedBackground from "@/src/components/AnimatedBackground";
 
 export default function MarketplacePreview() {
   const preview = mockListings.slice(0, 6);
 
   return (
-    <section className="py-16 px-6 bg-gradient-to-b from-green-50 to-white">
-      <div className="max-w-6xl mx-auto">
+    <section className="relative overflow-hidden py-16 px-6 bg-gradient-to-b from-green-50 to-white">
+      <AnimatedBackground variant="green" density="light" opacity={0.08} />
+      <div className="relative z-10 max-w-6xl mx-auto">
         {/* Header */}
         <div className="flex items-end justify-between mb-8 flex-wrap gap-4">
           <div>

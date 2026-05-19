@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import AnimatedBackground from "@/src/components/AnimatedBackground";
 
 export default function Hero() {
     const phrases = [
@@ -41,12 +42,15 @@ export default function Hero() {
 
     return (
         <section className="relative w-full h-90 flex items-center justify-center text-center overflow-hidden">
-            {/* Background Video */}
+            {/* Background Video — preserved */}
             <div className="absolute inset-0">
                 <video autoPlay loop muted playsInline className="w-full h-full object-cover">
                     <source src="/hero.mp4" type="video/mp4" />
                 </video>
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-900/40 via-blue-700/30 to-blue-500/20"></div>
+                {/* Dark gradient over the video */}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-900/50 via-blue-800/35 to-blue-600/25" />
+                {/* Particle network + shapes layered on top of video */}
+                <AnimatedBackground variant="blue" density="medium" speed="slow" opacity={0.55} />
             </div>
 
             {/* Glassmorphic Content */}

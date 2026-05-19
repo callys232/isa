@@ -7,6 +7,8 @@ import MarketplaceHero from "@/src/components/marketplace/MarketplaceHero";
 import ListingGrid from "@/src/components/marketplace/ListingGrid";
 import ListingDetailModal from "@/src/components/marketplace/ListingDetailModal";
 import PostListingModal from "@/src/components/marketplace/PostListingModal";
+import PlanGate from "@/src/components/ui/PlanGate";
+import { usePlan } from "@/src/context/UserContext";
 
 export default function MarketplacePage() {
   const [category, setCategory] = useState<ListingCategory | 'all'>('all');
@@ -14,6 +16,8 @@ export default function MarketplacePage() {
   const [sortBy, setSortBy] = useState('newest');
   const [selected, setSelected] = useState<Listing | null>(null);
   const [showPost, setShowPost] = useState(false);
+  const [showGate, setShowGate] = useState(false);
+  const { isPremium } = usePlan();
 
   const filtered = useMemo(() => {
     let list = [...mockListings];
@@ -61,7 +65,7 @@ export default function MarketplacePage() {
             🌾 Are you a farmer, distributor, or agro-dealer? <span className="font-bold">List your products for free.</span>
           </p>
           <button
-            onClick={() => setShowPost(true)}
+            onClick={() => isPremium ? setShowPost(true) : setShowGate(true)}
             className="px-5 py-2 bg-white text-green-700 rounded-xl text-sm font-bold hover:bg-green-50 transition-all shadow-md shrink-0"
           >
             + Sell on Marketplace
@@ -80,8 +84,21 @@ export default function MarketplacePage() {
       {/* Listing Detail Modal */}
       {selected && <ListingDetailModal listing={selected} onClose={() => setSelected(null)} />}
 
-      {/* Post Listing Modal */}
+      {/* Post Listing Modal — Premium only */}
       {showPost && <PostListingModal onClose={() => setShowPost(false)} />}
+
+      {/* Plan gate modal for non-premium users trying to post */}
+      {showGate && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          style={{ background: "rgba(0,0,0,0.6)", backdropFilter: "blur(6px)" }}
+          onClick={() => setShowGate(false)}>
+          <div onClick={e => e.stopPropagation()} className="w-full max-w-md">
+            <PlanGate require="premium" feature="Post a Marketplace Listing" description="List your farm produce, seeds, fertiliser, or equipment for buyers across Nigeria. Available on Premium and Admin plans.">
+              <div className="h-40 bg-green-50 rounded-xl flex items-center justify-center text-4xl">🛒</div>
+            </PlanGate>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

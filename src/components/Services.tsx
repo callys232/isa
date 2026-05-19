@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { FaLightbulb, FaSeedling, FaCalendarAlt, FaFileInvoice, FaStore, FaMicrochip, FaRobot, FaCode } from "react-icons/fa";
+import AnimatedBackground from "@/src/components/AnimatedBackground";
 
 const primaryServices = [
     {
@@ -58,8 +59,11 @@ export default function Services() {
         <section
             id="services-section"
             aria-label="ISA Services"
-            className="relative py-20 px-6 bg-gradient-to-b from-white via-gray-50 to-green-50"
+            className="relative overflow-hidden py-20 px-6 bg-gradient-to-b from-white via-gray-50 to-green-50"
         >
+            <AnimatedBackground variant="green" density="light" opacity={0.07} />
+
+            <div className="relative z-10">
             <div className="max-w-6xl mx-auto text-center mb-12">
                 <div className="inline-flex items-center gap-2 bg-green-100 text-green-700 text-xs font-bold px-4 py-1.5 rounded-full mb-4">
                     🌾 Nigeria's Most Complete Agri-Tech Platform
@@ -108,6 +112,7 @@ export default function Services() {
                     ))}
                 </div>
             </div>
+            </div>{/* end z-10 wrapper */}
         </section>
     );
 }

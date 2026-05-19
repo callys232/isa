@@ -2,6 +2,29 @@
 import { useEffect, useState } from "react";
 import { Video } from "@/src/types/videos";
 import ReactPlayer from "react-player";
+import type { ComponentType } from "react";
+import AnimatedBackground from "@/src/components/AnimatedBackground";
+
+// react-player v3 changed its forwardRef signature in a way that hides
+// standard props from TypeScript. This cast restores the expected API.
+const Player = ReactPlayer as unknown as ComponentType<{
+    url: string;
+    width?: string | number;
+    height?: string | number;
+    controls?: boolean;
+    className?: string;
+    playing?: boolean;
+    loop?: boolean;
+    muted?: boolean;
+    volume?: number;
+    playbackRate?: number;
+    onReady?: () => void;
+    onStart?: () => void;
+    onPlay?: () => void;
+    onPause?: () => void;
+    onEnded?: () => void;
+    onError?: (error: unknown) => void;
+}>;
 
 interface SponsoredVideoProps {
     video?: Video;
@@ -48,8 +71,9 @@ export default function SponsoredVideoSection({ video }: SponsoredVideoProps) {
     };
 
     return (
-        <section className="py-12 px-6 bg-yellow-50 rounded-lg shadow-md">
-            <div className="grid md:grid-cols-3 gap-8 items-center">
+        <section className="relative py-12 px-6 bg-yellow-50 rounded-lg shadow-md overflow-hidden">
+            <AnimatedBackground variant="green" density="medium" />
+            <div className="relative z-10 grid md:grid-cols-3 gap-8 items-center">
 
                 {/* Supporting pictures on the left */}
                 {video.pictures && video.pictures.length > 0 && (
@@ -67,7 +91,7 @@ export default function SponsoredVideoSection({ video }: SponsoredVideoProps) {
 
                 {/* Video Player with hover pop */}
                 <div className="relative transform transition-transform hover:scale-105">
-                    <ReactPlayer
+                    <Player
                         url={video.url}
                         width="100%"
                         height="320px"

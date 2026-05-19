@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import AnimatedBackground from "@/src/components/AnimatedBackground";
 
 const streams = [
   { icon: '🏪', title: 'Marketplace Commission', desc: '2–5% on every transaction', color: 'bg-green-50 border-green-200' },
@@ -13,8 +14,9 @@ const streams = [
 
 export default function RevenueStrip() {
   return (
-    <section className="py-14 px-6 bg-gray-900">
-      <div className="max-w-6xl mx-auto">
+    <section className="relative overflow-hidden py-14 px-6 bg-gray-900">
+      <AnimatedBackground variant="blue" density="medium" opacity={0.18} />
+      <div className="relative z-10 max-w-6xl mx-auto">
         <div className="text-center mb-8">
           <h2 className="text-2xl md:text-3xl font-extrabold text-white mb-2">6 Revenue Streams. One Platform.</h2>
           <p className="text-gray-400 text-sm">ISA is built to monetize every layer of the agricultural value chain.</p>

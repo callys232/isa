@@ -64,8 +64,9 @@ export default function InvoicePreview({ invoice, onClose, onMarkPaid }: Props) 
     : `INV-${invoice.id}`;
 
   return (
-    <div className="fixed inset-0 bg-black/60 z-50 flex items-start justify-center p-4 overflow-y-auto" onClick={onClose}>
-      <div className="bg-white rounded-2xl w-full max-w-3xl shadow-2xl my-8" onClick={e => e.stopPropagation()}>
+    <div className="fixed inset-0 bg-black/60 z-50 flex items-start justify-center p-4 overflow-y-auto animate-[fadeIn_0.15s_ease]" onClick={onClose}>
+      <div className="bg-white rounded-2xl w-full max-w-3xl shadow-2xl my-8 animate-[popIn_0.2s_ease]" onClick={e => e.stopPropagation()}
+        style={{ animation: 'popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)' }}>
 
         {/* Modal controls */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
@@ -78,16 +79,16 @@ export default function InvoicePreview({ invoice, onClose, onMarkPaid }: Props) 
           <div className="flex items-center gap-2">
             {invoice.status === "Pending" && onMarkPaid && (
               <button onClick={() => { onMarkPaid(invoice.id); onClose(); }}
-                className="px-4 py-2 bg-green-600 text-white text-xs font-bold rounded-xl hover:bg-green-700 transition-all shadow-md">
+                className="px-4 py-2 bg-green-600 text-white text-xs font-bold rounded-xl hover:bg-green-700 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-150 active:scale-95 shadow-md">
                 ✓ Mark Paid
               </button>
             )}
             <button onClick={handlePrint}
-              className="px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-xl hover:bg-blue-700 transition-all shadow-md">
+              className="px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-xl hover:bg-blue-700 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-150 active:scale-95 shadow-md">
               🖨 Print / PDF
             </button>
             <button onClick={onClose}
-              className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 transition-all">
+              className="w-8 h-8 rounded-full bg-gray-100 hover:bg-red-100 hover:text-red-500 flex items-center justify-center text-gray-500 transition-all duration-150 active:scale-90">
               ✕
             </button>
           </div>
@@ -183,7 +184,7 @@ export default function InvoicePreview({ invoice, onClose, onMarkPaid }: Props) 
 
           {/* Notes */}
           {invoice.notes && (
-            <div className="p-4 bg-blue-50 rounded-xl border border-blue-100">
+            <div className="p-4 bg-blue-50 rounded-xl border border-blue-100 hover:border-blue-300 hover:shadow-sm transition-all duration-150">
               <p className="text-xs font-bold text-blue-800 uppercase tracking-wide mb-1">Notes & Payment Terms</p>
               <p className="text-xs text-gray-600 leading-relaxed">{invoice.notes}</p>
             </div>

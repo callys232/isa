@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { mockSensors, mockWeather } from "@/src/mocks/mockDashboard";
+import AnimatedBackground from "@/src/components/AnimatedBackground";
 
 const statusColors = {
   optimal: 'text-green-600 bg-green-100',
@@ -11,8 +12,9 @@ const statusColors = {
 
 export default function DashboardPreview() {
   return (
-    <section className="py-16 px-6 bg-gradient-to-b from-white to-blue-50">
-      <div className="max-w-6xl mx-auto">
+    <section className="relative overflow-hidden py-16 px-6 bg-gradient-to-b from-white to-blue-50">
+      <AnimatedBackground variant="blue" density="light" opacity={0.07} />
+      <div className="relative z-10 max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
 
           {/* Text Side */}
